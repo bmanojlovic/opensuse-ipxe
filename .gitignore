@@ -3,6 +3,9 @@
 *.lo
 *.o
 
+# joe backup files
+*~
+
 # Compiled Dynamic libraries
 *.so
 

@@ -1,0 +1,51 @@
+#!/bin/sh
+SUSEDISTROS=$(w3m -dump http://download.opensuse.org/distribution/ |grep '\[DIR\]'|grep -v "Parent Direc"|cut -d" " -f2)
+
+
+cat <<EOF
+#!ipxe
+ifopen net0
+dhcp net0
+set menu-timeout 5000
+set opensuse http://download.opensuse.org/distribution/
+
+
+menu Boot Selection
+
+
+EOF
+for version in ${SUSEDISTROS}; do
+
+cat << EOF
+kernel \${opensuse}/${version}boot/i386/loader/linux 
+initrd \${opensuse}/${version}boot/i386/loader/initrd
+imgargs linux install=\${opensuse}/${version}
+boot ||
+echo Booting failed, dropping to shell
+shell
+EOF
+cat << EOF
+kernel \${opensuse}/${version}boot/x86_64/loader/linux 
+initrd \${opensuse}/${version}boot/x86_64/loader/initrd
+imgargs linux install=\${opensuse}/${version}
+boot ||
+echo Booting failed, dropping to shell
+shell
+EOF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+done
+

@@ -1,0 +1,104 @@
+#!ipxe
+ifopen net0
+dhcp net0
+set menu-timeout 5000
+set opensuse http://download.opensuse.org/distribution
+
+:selection
+menu Boot Selection
+item --gap -- ------------- Boot Selection ------------
+item          openSUSEcurrent    openSUSE current
+item          openSUSEcurrent32bit    openSUSE current 32bit
+item          openSUSEstable    openSUSE stable
+item          openSUSEstable32bit    openSUSE stable 32bit
+item          openSUSE12.1    openSUSE 12.1
+item          openSUSE12.132bit    openSUSE 12.1 32bit
+item          openSUSE11.4    openSUSE 11.4
+item          openSUSE11.432bit    openSUSE 11.4 32bit
+item          openSUSE11.3    openSUSE 11.3
+item          openSUSE11.332bit    openSUSE 11.3 32bit
+item          openSUSE11.2    openSUSE 11.2
+item          openSUSE11.232bit    openSUSE 11.2 32bit
+item          openSUSE11.1    openSUSE 11.1
+item          openSUSE11.132bit    openSUSE 11.1 32bit
+item --gap -- ------------- Boot Selection End ------------
+choose --timeout ${menu-timeout} --default openSUSE-current selected || goto back
+set menu-timeout 0
+goto ${selected}
+
+:realboot
+kernel ${base-url}/boot/${susearch}/loader/linux
+initrd ${base-url}/boot/${susearch}/loader/initrd
+imgargs linux install=${base-url}
+boot
+
+:openSUSE12.132bit 
+set susearch i386
+set base-url ${opensuse}/12.1/repo/oss
+goto realboot
+
+:openSUSE12.1 
+set susearch x86_64
+set base-url ${opensuse}/12.1/repo/oss
+goto realboot
+
+:openSUSE11.432bit 
+set susearch i386
+set base-url ${opensuse}/11.4/repo/oss
+goto realboot
+
+:openSUSE11.4 
+set susearch x86_64
+set base-url ${opensuse}/11.4/repo/oss
+goto realboot
+
+:openSUSE11.332bit 
+set susearch i386
+set base-url ${opensuse}/11.3/repo/oss
+goto realboot
+
+:openSUSE11.3 
+set susearch x86_64
+set base-url ${opensuse}/11.3/repo/oss
+goto realboot
+
+:openSUSE11.232bit 
+set susearch i386
+set base-url ${opensuse}/11.2/repo/oss
+goto realboot
+
+:openSUSE11.2 
+set susearch x86_64
+set base-url ${opensuse}/11.2/repo/oss
+goto realboot
+
+:openSUSE11.132bit 
+set susearch i386
+set base-url ${opensuse}/11.1/repo/oss
+goto realboot
+
+:openSUSE11.1 
+set susearch x86_64
+set base-url ${opensuse}/11.1/repo/oss
+goto realboot
+
+:openSUSEcurrent
+set susearch x86_64
+set base-url ${opensuse}/openSUSE-current/repo/oss
+goto realboot
+
+:openSUSEcurrent32bit 
+set susearch i386
+set base-url ${opensuse}/openSUSE-current/repo/oss
+goto realboot
+
+:openSUSEstable
+set susearch x86_64
+set base-url ${opensuse}/openSUSE-stable/repo/oss
+goto realboot
+
+:openSUSEstable32bit 
+set susearch i386
+set base-url ${opensuse}/openSUSE-stable/repo/oss
+goto realboot
+

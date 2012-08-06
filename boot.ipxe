@@ -1,6 +1,0 @@
-#!ipxe
-
-set suseurl http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader
-kernel ${suseurl}/linux
-initrd ${suseurl}/initrd
-boot

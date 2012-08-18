@@ -11,12 +11,14 @@ set opensuse http://download.opensuse.org/distribution
 
 :selection
 menu Boot Selection
-item --gap -- -------------         Boot Selection ------------
-item --key c  settings              Configure network settings
-item          openSUSEcurrent       openSUSE current
-item          openSUSEcurrent_32bit  openSUSE current 32bit
-item          openSUSEstable        openSUSE stable
-item          openSUSEstable_32bit   openSUSE stable 32bit
+item --gap -- -------------            Boot Selection ------------
+item --key c  settings                 Configure network settings
+item          bootdisk                 Boot from local disk
+item          shell                    iPXE shell
+item          openSUSEcurrent          openSUSE current
+item          openSUSEcurrent_32bit    openSUSE current 32bit
+item          openSUSEstable           openSUSE stable
+item          openSUSEstable_32bit     openSUSE stable 32bit
 EOF
 for version in ${SUSEDISTROS}; do
 case  "$version" in
@@ -26,8 +28,8 @@ case  "$version" in
 		;; # ignore not released version...
 	*)
 cat << EOF
-item          openSUSE${version}    openSUSE ${version}
-item          openSUSE${version}_32bit    openSUSE ${version} 32bit
+item          openSUSE${version}       openSUSE ${version}
+item          openSUSE${version}_32bit openSUSE ${version} 32bit
 EOF
 		;;
 esac
@@ -49,6 +51,13 @@ initrd \${base-url}/boot/\${susearch}/loader/initrd
 imgargs linux install=\${base-url}
 boot
 
+:bootdisk
+sanboot --no-describe --drive 0x80
+
+:shell
+echo type exit to return back to menu
+shell
+goto selection
 EOF
 
 

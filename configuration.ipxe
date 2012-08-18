@@ -6,22 +6,24 @@ set opensuse http://download.opensuse.org/distribution
 
 :selection
 menu Boot Selection
-item --gap -- -------------         Boot Selection ------------
-item --key c  settings              Configure network settings
-item          openSUSEcurrent       openSUSE current
-item          openSUSEcurrent_32bit  openSUSE current 32bit
-item          openSUSEstable        openSUSE stable
-item          openSUSEstable_32bit   openSUSE stable 32bit
-item          openSUSE12.1    openSUSE 12.1
-item          openSUSE12.1_32bit    openSUSE 12.1 32bit
-item          openSUSE11.4    openSUSE 11.4
-item          openSUSE11.4_32bit    openSUSE 11.4 32bit
-item          openSUSE11.3    openSUSE 11.3
-item          openSUSE11.3_32bit    openSUSE 11.3 32bit
-item          openSUSE11.2    openSUSE 11.2
-item          openSUSE11.2_32bit    openSUSE 11.2 32bit
-item          openSUSE11.1    openSUSE 11.1
-item          openSUSE11.1_32bit    openSUSE 11.1 32bit
+item --gap -- -------------            Boot Selection ------------
+item --key c  settings                 Configure network settings
+item          bootdisk                 Boot from local disk
+item          shell                    iPXE shell
+item          openSUSEcurrent          openSUSE current
+item          openSUSEcurrent_32bit    openSUSE current 32bit
+item          openSUSEstable           openSUSE stable
+item          openSUSEstable_32bit     openSUSE stable 32bit
+item          openSUSE12.1       openSUSE 12.1
+item          openSUSE12.1_32bit openSUSE 12.1 32bit
+item          openSUSE11.4       openSUSE 11.4
+item          openSUSE11.4_32bit openSUSE 11.4 32bit
+item          openSUSE11.3       openSUSE 11.3
+item          openSUSE11.3_32bit openSUSE 11.3 32bit
+item          openSUSE11.2       openSUSE 11.2
+item          openSUSE11.2_32bit openSUSE 11.2 32bit
+item          openSUSE11.1       openSUSE 11.1
+item          openSUSE11.1_32bit openSUSE 11.1 32bit
 item --gap -- ------------- Boot Selection End ------------
 choose --timeout ${menu-timeout} --default openSUSEcurrent selected || goto selection
 set menu-timeout 0
@@ -37,6 +39,13 @@ initrd ${base-url}/boot/${susearch}/loader/initrd
 imgargs linux install=${base-url}
 boot
 
+:bootdisk
+sanboot --no-describe --drive 0x80
+
+:shell
+echo type exit to return back to menu
+shell
+goto selection
 :openSUSE12.1_32bit 
 set susearch i386
 set base-url ${opensuse}/12.1/repo/oss

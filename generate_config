@@ -28,8 +28,8 @@ case  "$version" in
 		;; # ignore not released version...
 	*)
 cat << EOF
-item          openSUSE${version}       openSUSE ${version}
-item          openSUSE${version}_32bit openSUSE ${version} 32bit
+item          openSUSE${version}             openSUSE ${version}
+item          openSUSE${version}_32bit       openSUSE ${version} 32bit
 EOF
 		;;
 esac
@@ -58,6 +58,7 @@ sanboot --no-describe --drive 0x80
 echo type exit to return back to menu
 shell
 goto selection
+
 EOF
 
 

@@ -15,17 +15,17 @@ item --gap -- -------------            Boot Selection ------------
 item --key c  settings                 Configure network settings
 item          bootdisk                 Boot from local disk
 item          shell                    iPXE shell
-item          openSUSEcurrent          openSUSE current
-item          openSUSEcurrent_32bit    openSUSE current 32bit
 item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
+item          factorysnapshot          openSUSE Factory snapshot
+item          factorysnapshot_32bit    openSUSE Factory snapshot 32bit
 EOF
 for version in ${SUSEDISTROS}; do
 case  "$version" in
 	openSUSE-*)
 		;;
 	*-*)
-		;; # ignore not released version...
+		;; # ignore not released version... no repo here
 	*)
 cat << EOF
 item          openSUSE${version}             openSUSE ${version}
@@ -36,10 +36,8 @@ esac
 
 done
 cat << EOF
-item          factorysnapshot          openSUSE Factory snapshot
-item          factorysnapshot_32bit    openSUSE Factory snapshot 32bit
 item --gap -- ------------- Boot Selection End ------------
-choose --timeout \${menu-timeout} --default openSUSEcurrent selected || goto selection
+choose --timeout \${menu-timeout} --default openSUSEstable selected || goto selection
 set menu-timeout 0
 goto \${selected}
 
@@ -69,7 +67,7 @@ case  "$version" in
         openSUSE-*)
         	;; 
 	*-*)
-		;; # ignore not released version...
+		;; # ignore not released version... no repo here
 	*)
 cat << EOF
 :openSUSE${version}_32bit 
@@ -87,15 +85,6 @@ EOF
 esac
 done
 cat << EOF
-:openSUSEcurrent
-set susearch x86_64
-set base-url \${opensuse}/openSUSE-current/repo/oss
-goto realboot
-
-:openSUSEcurrent_32bit
-set susearch i386
-set base-url \${opensuse}/openSUSE-current/repo/oss
-goto realboot
 
 :openSUSEstable
 set susearch x86_64

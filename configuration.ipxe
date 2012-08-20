@@ -24,6 +24,8 @@ item          openSUSE11.2             openSUSE 11.2
 item          openSUSE11.2_32bit       openSUSE 11.2 32bit
 item          openSUSE11.1             openSUSE 11.1
 item          openSUSE11.1_32bit       openSUSE 11.1 32bit
+item          factorysnapshot          openSUSE Factory snapshot
+item          factorysnapshot_32bit    openSUSE Factory snapshot 32bit
 item --gap -- ------------- Boot Selection End ------------
 choose --timeout ${menu-timeout} --default openSUSEcurrent selected || goto selection
 set menu-timeout 0
@@ -115,5 +117,15 @@ goto realboot
 :openSUSEstable_32bit 
 set susearch i386
 set base-url ${opensuse}/openSUSE-stable/repo/oss
+goto realboot
+
+:factorysnapshot
+set susearch x86_64
+set base-url ${opensuse}/../factory-snapshot/repo/oss
+goto realboot
+
+:factorysnapshot_32bit 
+set susearch i386
+set base-url ${opensuse}/../factory-snapshot/repo/oss
 goto realboot
 

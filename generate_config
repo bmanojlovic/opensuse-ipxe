@@ -78,7 +78,7 @@ EOF
 for version in ${SUSEDISTROS}; do
 case  "$version" in
         openSUSE-*)
-        	;; 
+        	;;
 	*-*)
 		;; # ignore not released version... no repo here
 	*)
@@ -94,7 +94,7 @@ set base-url \${opensuse}/${version}/repo/oss
 goto realboot
 
 EOF
-;;
+	;;
 esac
 done
 cat << EOF

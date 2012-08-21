@@ -40,14 +40,12 @@ choose --timeout ${menu-timeout} --default shell selected || goto selection
 set menu-timeout 0
 goto ${selected}  
 
-
 :back
 goto selection
 
 :settings
 config
 goto advanced
-
 
 :bootdisk
 sanboot --no-describe --drive 0x80

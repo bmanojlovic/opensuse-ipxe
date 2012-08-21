@@ -12,13 +12,9 @@ set opensuse http://download.opensuse.org/distribution
 :selection
 menu Boot Selection
 item --gap -- -------------            Boot Selection ------------
-item --key c  settings                 Configure network settings
-item          bootdisk                 Boot from local disk
-item          shell                    iPXE shell
+item --key c  advanced                 Advanced Boot Settings
 item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
-item          factorysnapshot          openSUSE Factory snapshot
-item          factorysnapshot_32bit    openSUSE Factory snapshot 32bit
 EOF
 for version in ${SUSEDISTROS}; do
 case  "$version" in
@@ -41,15 +37,27 @@ choose --timeout \${menu-timeout} --default openSUSEstable selected || goto sele
 set menu-timeout 0
 goto \${selected}
 
-:settings
-config
+:advanced
+set menu-timeout 5000
+menu Advanced Boot Settings
+item --gap -- -------------            Advanced Boot Settings Menu ------------
+item --key c  settings                 Configure network settings
+item          bootdisk                 Boot from local disk
+item          shell                    iPXE shell
+item          factorysnapshot          openSUSE Factory snapshot
+item          factorysnapshot_32bit    openSUSE Factory snapshot 32bit
+item          back                     Back to main menu (or press ESC)
+item --gap -- ------------- Advanced Boot settings End ------------
+choose --timeout \${menu-timeout} --default shell selected || goto selection
+set menu-timeout 0
+goto \${selected}
+
+:back
 goto selection
 
-:realboot
-kernel \${base-url}/boot/\${susearch}/loader/linux
-initrd \${base-url}/boot/\${susearch}/loader/initrd
-imgargs linux install=\${base-url}
-boot
+:settings
+config
+goto advanced
 
 :bootdisk
 sanboot --no-describe --drive 0x80
@@ -57,10 +65,15 @@ sanboot --no-describe --drive 0x80
 :shell
 echo type exit to return back to menu
 shell
-goto selection
+goto advanced
+
+:realboot
+kernel \${base-url}/boot/\${susearch}/loader/linux
+initrd \${base-url}/boot/\${susearch}/loader/initrd
+imgargs linux install=\${base-url}
+boot
 
 EOF
-
 
 for version in ${SUSEDISTROS}; do
 case  "$version" in
@@ -70,12 +83,12 @@ case  "$version" in
 		;; # ignore not released version... no repo here
 	*)
 cat << EOF
-:openSUSE${version}_32bit 
+:openSUSE${version}_32bit
 set susearch i386
 set base-url \${opensuse}/${version}/repo/oss
 goto realboot
 
-:openSUSE${version} 
+:openSUSE${version}
 set susearch x86_64
 set base-url \${opensuse}/${version}/repo/oss
 goto realboot
@@ -91,7 +104,7 @@ set susearch x86_64
 set base-url \${opensuse}/openSUSE-stable/repo/oss
 goto realboot
 
-:openSUSEstable_32bit 
+:openSUSEstable_32bit
 set susearch i386
 set base-url \${opensuse}/openSUSE-stable/repo/oss
 goto realboot
@@ -101,7 +114,7 @@ set susearch x86_64
 set base-url \${opensuse}/../factory-snapshot/repo/oss
 goto realboot
 
-:factorysnapshot_32bit 
+:factorysnapshot_32bit
 set susearch i386
 set base-url \${opensuse}/../factory-snapshot/repo/oss
 goto realboot

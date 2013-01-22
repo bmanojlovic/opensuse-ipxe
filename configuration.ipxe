@@ -16,12 +16,6 @@ item          openSUSE12.1             openSUSE 12.1
 item          openSUSE12.1_32bit       openSUSE 12.1 32bit
 item          openSUSE11.4             openSUSE 11.4
 item          openSUSE11.4_32bit       openSUSE 11.4 32bit
-item          openSUSE11.3             openSUSE 11.3
-item          openSUSE11.3_32bit       openSUSE 11.3 32bit
-item          openSUSE11.2             openSUSE 11.2
-item          openSUSE11.2_32bit       openSUSE 11.2 32bit
-item          openSUSE11.1             openSUSE 11.1
-item          openSUSE11.1_32bit       openSUSE 11.1 32bit
 item --gap -- ------------- Boot Selection End ------------
 choose --timeout ${menu-timeout} --default openSUSEstable selected || goto selection
 set menu-timeout 0
@@ -91,36 +85,6 @@ goto realboot
 :openSUSE11.4
 set susearch x86_64
 set base-url ${opensuse}/11.4/repo/oss
-goto realboot
-
-:openSUSE11.3_32bit
-set susearch i386
-set base-url ${opensuse}/11.3/repo/oss
-goto realboot
-
-:openSUSE11.3
-set susearch x86_64
-set base-url ${opensuse}/11.3/repo/oss
-goto realboot
-
-:openSUSE11.2_32bit
-set susearch i386
-set base-url ${opensuse}/11.2/repo/oss
-goto realboot
-
-:openSUSE11.2
-set susearch x86_64
-set base-url ${opensuse}/11.2/repo/oss
-goto realboot
-
-:openSUSE11.1_32bit
-set susearch i386
-set base-url ${opensuse}/11.1/repo/oss
-goto realboot
-
-:openSUSE11.1
-set susearch x86_64
-set base-url ${opensuse}/11.1/repo/oss
 goto realboot
 
 

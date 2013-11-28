@@ -10,6 +10,8 @@ item --gap -- -------------            Boot Selection ------------
 item --key c  advanced                 Advanced Boot Settings
 item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
+item          openSUSE13.1             openSUSE 13.1
+item          openSUSE13.1_32bit       openSUSE 13.1 32bit
 item          openSUSE12.3             openSUSE 12.3
 item          openSUSE12.3_32bit       openSUSE 12.3 32bit
 item          openSUSE12.2             openSUSE 12.2
@@ -58,6 +60,16 @@ kernel ${base-url}/boot/${susearch}/loader/linux
 initrd ${base-url}/boot/${susearch}/loader/initrd
 imgargs linux install=${base-url}
 boot
+
+:openSUSE13.1_32bit
+set susearch i386
+set base-url ${opensuse}/13.1/repo/oss
+goto realboot
+
+:openSUSE13.1
+set susearch x86_64
+set base-url ${opensuse}/13.1/repo/oss
+goto realboot
 
 :openSUSE12.3_32bit
 set susearch i386

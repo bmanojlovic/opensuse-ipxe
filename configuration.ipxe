@@ -32,6 +32,8 @@ item --gap -- -------------            Advanced Boot Settings Menu ------------
 item --key c  settings                 Configure network settings
 item          bootdisk                 Boot from local disk
 item          shell                    iPXE shell
+item          factory                  openSUSE Factory Rolling Release
+item          factory_32bit            openSUSE Factory Rolling Release 32bit
 item          factorysnapshot          openSUSE Factory snapshot
 item          factorysnapshot_32bit    openSUSE Factory snapshot 32bit
 item          back                     Back to main menu (or press ESC)
@@ -130,5 +132,15 @@ goto realboot
 :factorysnapshot_32bit
 set susearch i386
 set base-url ${opensuse}/../factory-snapshot/repo/oss
+goto realboot
+
+:factory
+set susearch x86_64
+set base-url ${opensuse}/../factory/repo/oss
+goto realboot
+
+:factory_32bit
+set susearch i386
+set base-url ${opensuse}/../factory/repo/oss
 goto realboot
 

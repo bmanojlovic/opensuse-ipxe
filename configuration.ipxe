@@ -12,6 +12,8 @@ item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
 item          factory                  openSUSE Factory Rolling Release
 item          factory_32bit            openSUSE Factory Rolling Release 32bit
+item          openSUSE13.2             openSUSE 13.2
+item          openSUSE13.2_32bit       openSUSE 13.2 32bit
 item          openSUSE13.1             openSUSE 13.1
 item          openSUSE13.1_32bit       openSUSE 13.1 32bit
 item          openSUSE12.3             openSUSE 12.3
@@ -62,6 +64,16 @@ kernel ${base-url}/boot/${susearch}/loader/linux
 initrd ${base-url}/boot/${susearch}/loader/initrd
 imgargs linux install=${base-url}
 boot
+
+:openSUSE13.2_32bit
+set susearch i386
+set base-url ${opensuse}/13.2/repo/oss
+goto realboot
+
+:openSUSE13.2
+set susearch x86_64
+set base-url ${opensuse}/13.2/repo/oss
+goto realboot
 
 :openSUSE13.1_32bit
 set susearch i386

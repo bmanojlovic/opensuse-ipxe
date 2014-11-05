@@ -1,6 +1,5 @@
 #!/bin/sh
-SUSEDISTROS=$(w3m -dump http://download.opensuse.org/distribution/ |grep '\[DIR\]'|grep -v "Parent Direc"|cut -d" " -f2|sed -e 's@/@@g'|sort -n -r)
-
+SUSEDISTROS=$(w3m -dump http://download.opensuse.org/distribution/ |sed -re '/DIR/!d;/Parent/d;s/.DIR. //g;s@/.*@@g'|sort -n -r)
 
 cat <<EOF
 #!ipxe

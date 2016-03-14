@@ -24,6 +24,8 @@ item          openSUSE12.1             openSUSE 12.1
 item          openSUSE12.1_32bit       openSUSE 12.1 32bit
 item          openSUSE11.4             openSUSE 11.4
 item          openSUSE11.4_32bit       openSUSE 11.4 32bit
+item          openSUSEleap             openSUSE leap
+item          openSUSEleap_32bit       openSUSE leap 32bit
 item --gap -- ------------- Boot Selection End ------------
 choose --timeout ${menu-timeout} --default openSUSEstable selected || goto selection
 set menu-timeout 0
@@ -127,6 +129,16 @@ goto realboot
 :openSUSE11.4
 set susearch x86_64
 set base-url ${opensuse}/11.4/repo/oss
+goto realboot
+
+:openSUSEleap_32bit
+set susearch i386
+set base-url ${opensuse}/leap/repo/oss
+goto realboot
+
+:openSUSEleap
+set susearch x86_64
+set base-url ${opensuse}/leap/repo/oss
 goto realboot
 
 

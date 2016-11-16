@@ -1,5 +1,6 @@
 #!/bin/sh
-SUSEDISTROS=$(w3m -dump http://download.opensuse.org/distribution/ |sed -re '/DIR/!d;/Parent/d;s/.DIR. //g;s@/.*@@g'|sort -n -r)
+SUSEDISTROS=$(w3m -dump http://download.opensuse.org/distribution/ |sed -re '/DIR/!d;/leap/d;/Parent/d;s/.DIR. //g;s@/.*@@g'|sort -n -r)
+SUSEDISTROSLEAP=$(w3m -dump http://download.opensuse.org/distribution/leap |sed -re '/DIR/!d;/Parent/d;s/.DIR. //g;s@/.*@@g'|sort -n -r)
 
 cat <<EOF
 #!ipxe
@@ -17,6 +18,22 @@ item          tumbleweed_32bit         openSUSE Tumbleweed Rolling Release 32bit
 item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
 EOF
+
+for version in ${SUSEDISTROSLEAP}; do
+case  "$version" in
+	openSUSE-*)
+		;;
+	*-*)
+		;; # ignore not released version... no repo here
+	*)
+cat << EOF
+item          openSUSELeap${version}         openSUSE Leap ${version}
+EOF
+		;;
+esac
+done
+
+#duplicated i know but...
 for version in ${SUSEDISTROS}; do
 case  "$version" in
 	openSUSE-*)
@@ -30,8 +47,8 @@ item          openSUSE${version}_32bit       openSUSE ${version} 32bit
 EOF
 		;;
 esac
-
 done
+
 cat << EOF
 item --gap -- ------------- Boot Selection End ------------
 choose --timeout \${menu-timeout} --default openSUSEstable selected || goto selection
@@ -102,6 +119,26 @@ EOF
 	;;
 esac
 done
+
+
+for version in ${SUSEDISTROSLEAP}; do
+case  "$version" in
+        openSUSE-*)
+        	;;
+	*-*)
+		;; # ignore not released version... no repo here
+	*)
+cat << EOF
+:openSUSELeap${version}
+set susearch x86_64
+set base-url \${opensuse}/leap/${version}/repo/oss
+goto realboot
+
+EOF
+	;;
+esac
+done
+
 cat << EOF
 
 :openSUSEstable

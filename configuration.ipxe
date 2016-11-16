@@ -12,6 +12,8 @@ item          tumbleweed               openSUSE Tumbleweed Rolling Release
 item          tumbleweed_32bit         openSUSE Tumbleweed Rolling Release 32bit
 item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
+item          openSUSELeap42.2         openSUSE Leap 42.2
+item          openSUSELeap42.1         openSUSE Leap 42.1
 item          openSUSE13.2             openSUSE 13.2
 item          openSUSE13.2_32bit       openSUSE 13.2 32bit
 item          openSUSE13.1             openSUSE 13.1
@@ -24,8 +26,6 @@ item          openSUSE12.1             openSUSE 12.1
 item          openSUSE12.1_32bit       openSUSE 12.1 32bit
 item          openSUSE11.4             openSUSE 11.4
 item          openSUSE11.4_32bit       openSUSE 11.4 32bit
-item          openSUSEleap             openSUSE leap
-item          openSUSEleap_32bit       openSUSE leap 32bit
 item --gap -- ------------- Boot Selection End ------------
 choose --timeout ${menu-timeout} --default openSUSEstable selected || goto selection
 set menu-timeout 0
@@ -131,14 +131,14 @@ set susearch x86_64
 set base-url ${opensuse}/11.4/repo/oss
 goto realboot
 
-:openSUSEleap_32bit
-set susearch i386
-set base-url ${opensuse}/leap/repo/oss
+:openSUSELeap42.2
+set susearch x86_64
+set base-url ${opensuse}/leap/42.2/repo/oss
 goto realboot
 
-:openSUSEleap
+:openSUSELeap42.1
 set susearch x86_64
-set base-url ${opensuse}/leap/repo/oss
+set base-url ${opensuse}/leap/42.1/repo/oss
 goto realboot
 
 

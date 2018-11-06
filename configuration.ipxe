@@ -12,20 +12,10 @@ item          tumbleweed               openSUSE Tumbleweed Rolling Release
 item          tumbleweed_32bit         openSUSE Tumbleweed Rolling Release 32bit
 item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
+item          openSUSELeap42.3         openSUSE Leap 42.3
 item          openSUSELeap42.2         openSUSE Leap 42.2
-item          openSUSELeap42.1         openSUSE Leap 42.1
-item          openSUSE13.2             openSUSE 13.2
-item          openSUSE13.2_32bit       openSUSE 13.2 32bit
-item          openSUSE13.1             openSUSE 13.1
-item          openSUSE13.1_32bit       openSUSE 13.1 32bit
-item          openSUSE12.3             openSUSE 12.3
-item          openSUSE12.3_32bit       openSUSE 12.3 32bit
-item          openSUSE12.2             openSUSE 12.2
-item          openSUSE12.2_32bit       openSUSE 12.2 32bit
-item          openSUSE12.1             openSUSE 12.1
-item          openSUSE12.1_32bit       openSUSE 12.1 32bit
-item          openSUSE11.4             openSUSE 11.4
-item          openSUSE11.4_32bit       openSUSE 11.4 32bit
+item          openSUSELeap15.1         openSUSE Leap 15.1
+item          openSUSELeap15.0         openSUSE Leap 15.0
 item --gap -- ------------- Boot Selection End ------------
 choose --timeout ${menu-timeout} --default openSUSEstable selected || goto selection
 set menu-timeout 0
@@ -71,64 +61,9 @@ initrd ${base-url}/boot/${susearch}/loader/initrd
 imgargs linux install=${base-url}
 boot
 
-:openSUSE13.2_32bit
-set susearch i386
-set base-url ${opensuse}/13.2/repo/oss
-goto realboot
-
-:openSUSE13.2
+:openSUSELeap42.3
 set susearch x86_64
-set base-url ${opensuse}/13.2/repo/oss
-goto realboot
-
-:openSUSE13.1_32bit
-set susearch i386
-set base-url ${opensuse}/13.1/repo/oss
-goto realboot
-
-:openSUSE13.1
-set susearch x86_64
-set base-url ${opensuse}/13.1/repo/oss
-goto realboot
-
-:openSUSE12.3_32bit
-set susearch i386
-set base-url ${opensuse}/12.3/repo/oss
-goto realboot
-
-:openSUSE12.3
-set susearch x86_64
-set base-url ${opensuse}/12.3/repo/oss
-goto realboot
-
-:openSUSE12.2_32bit
-set susearch i386
-set base-url ${opensuse}/12.2/repo/oss
-goto realboot
-
-:openSUSE12.2
-set susearch x86_64
-set base-url ${opensuse}/12.2/repo/oss
-goto realboot
-
-:openSUSE12.1_32bit
-set susearch i386
-set base-url ${opensuse}/12.1/repo/oss
-goto realboot
-
-:openSUSE12.1
-set susearch x86_64
-set base-url ${opensuse}/12.1/repo/oss
-goto realboot
-
-:openSUSE11.4_32bit
-set susearch i386
-set base-url ${opensuse}/11.4/repo/oss
-goto realboot
-
-:openSUSE11.4
-set susearch x86_64
-set base-url ${opensuse}/11.4/repo/oss
+set base-url ${opensuse}/leap/42.3/repo/oss
 goto realboot
 
 :openSUSELeap42.2
@@ -136,9 +71,14 @@ set susearch x86_64
 set base-url ${opensuse}/leap/42.2/repo/oss
 goto realboot
 
-:openSUSELeap42.1
+:openSUSELeap15.1
 set susearch x86_64
-set base-url ${opensuse}/leap/42.1/repo/oss
+set base-url ${opensuse}/leap/15.1/repo/oss
+goto realboot
+
+:openSUSELeap15.0
+set susearch x86_64
+set base-url ${opensuse}/leap/15.0/repo/oss
 goto realboot
 
 

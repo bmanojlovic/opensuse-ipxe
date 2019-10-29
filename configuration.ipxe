@@ -14,6 +14,7 @@ item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
 item          openSUSELeap42.3         openSUSE Leap 42.3
 item          openSUSELeap42.2         openSUSE Leap 42.2
+item          openSUSELeap15.2         openSUSE Leap 15.2
 item          openSUSELeap15.1         openSUSE Leap 15.1
 item          openSUSELeap15.0         openSUSE Leap 15.0
 item --gap -- ------------- Boot Selection End ------------
@@ -58,7 +59,7 @@ goto advanced
 :realboot
 kernel ${base-url}/boot/${susearch}/loader/linux
 initrd ${base-url}/boot/${susearch}/loader/initrd
-imgargs linux install=${base-url}
+imgargs linux install=${base-url} hostip=${net0/ip} netmask=${net0/netmask} gateway=${net0/gateway} nameserver=${dns}
 boot
 
 :openSUSELeap42.3
@@ -69,6 +70,11 @@ goto realboot
 :openSUSELeap42.2
 set susearch x86_64
 set base-url ${opensuse}/leap/42.2/repo/oss
+goto realboot
+
+:openSUSELeap15.2
+set susearch x86_64
+set base-url ${opensuse}/leap/15.2/repo/oss
 goto realboot
 
 :openSUSELeap15.1

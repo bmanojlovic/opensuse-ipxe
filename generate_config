@@ -92,7 +92,7 @@ goto advanced
 :realboot
 kernel \${base-url}/boot/\${susearch}/loader/linux
 initrd \${base-url}/boot/\${susearch}/loader/initrd
-imgargs linux install=\${base-url}
+imgargs linux install=\${base-url} hostip=\${net0/ip} netmask=\${net0/netmask} gateway=\${net0/gateway} nameserver=\${dns}
 boot
 
 EOF

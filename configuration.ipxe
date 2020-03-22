@@ -13,7 +13,6 @@ item          tumbleweed_32bit         openSUSE Tumbleweed Rolling Release 32bit
 item          openSUSEstable           openSUSE stable
 item          openSUSEstable_32bit     openSUSE stable 32bit
 item          openSUSELeap42.3         openSUSE Leap 42.3
-item          openSUSELeap42.2         openSUSE Leap 42.2
 item          openSUSELeap15.2         openSUSE Leap 15.2
 item          openSUSELeap15.1         openSUSE Leap 15.1
 item          openSUSELeap15.0         openSUSE Leap 15.0
@@ -65,11 +64,6 @@ boot
 :openSUSELeap42.3
 set susearch x86_64
 set base-url ${opensuse}/leap/42.3/repo/oss
-goto realboot
-
-:openSUSELeap42.2
-set susearch x86_64
-set base-url ${opensuse}/leap/42.2/repo/oss
 goto realboot
 
 :openSUSELeap15.2

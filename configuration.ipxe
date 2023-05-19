@@ -11,13 +11,18 @@ item --key c  advanced                 Advanced Boot Settings
 item          tumbleweed               openSUSE Tumbleweed Rolling Release
 item          tumbleweed_32bit         openSUSE Tumbleweed Rolling Release 32bit
 item          openSUSEstable           openSUSE stable
-item          openSUSEstable_32bit     openSUSE stable 32bit
-item          openSUSELeap42.3         openSUSE Leap 42.3
+item          openSUSELeap15.5         openSUSE Leap 15.5
+item          openSUSELeap15.4         openSUSE Leap 15.4
+item          openSUSELeap15.3         openSUSE Leap 15.3
 item          openSUSELeap15.2         openSUSE Leap 15.2
 item          openSUSELeap15.1         openSUSE Leap 15.1
 item          openSUSELeap15.0         openSUSE Leap 15.0
 item          openSUSEjump             openSUSE jump
-item          openSUSEjump_32bit       openSUSE jump 32bit
+# 32bit is mostly removed but lets keep it here
+#item          openSUSEjump_32bit       openSUSE jump 32bit
+item          openSUSEleap             openSUSE leap
+# 32bit is mostly removed but lets keep it here
+#item          openSUSEleap_32bit       openSUSE leap 32bit
 item --gap -- ------------- Boot Selection End ------------
 choose --timeout ${menu-timeout} --default openSUSEstable selected || goto selection
 set menu-timeout 0
@@ -30,12 +35,8 @@ item --gap -- -------------            Advanced Boot Settings Menu ------------
 item --key c  settings                 Configure network settings
 item          bootdisk                 Boot from local disk
 item          shell                    iPXE shell
-item          factory                  openSUSE Factory
-item          factory_32bit            openSUSE Factory 32bit
-item          factorysnapshot          openSUSE Factory snapshot
-item          factorysnapshot_32bit    openSUSE Factory snapshot 32bit
-item          factorytested            openSUSE Factory Tested
-item          factorytested_32bit      openSUSE Factory Tested 32bit
+item          tumbleweed               openSUSE Tumbleweed
+item          tumbleweed_32bit         openSUSE Tumbleweed 32bit
 item          back                     Back to main menu (or press ESC)
 item --gap -- ------------- Advanced Boot settings End ------------
 choose --timeout ${menu-timeout} --default shell selected || goto selection
@@ -63,19 +64,29 @@ initrd ${base-url}/boot/${susearch}/loader/initrd
 imgargs linux install=${base-url} hostip=${net0/ip} netmask=${net0/netmask} gateway=${net0/gateway} nameserver=${dns}
 boot
 
-:openSUSEjump_32bit
-set susearch i386
-set base-url ${opensuse}/jump/repo/oss
-goto realboot
-
 :openSUSEjump
 set susearch x86_64
 set base-url ${opensuse}/jump/repo/oss
 goto realboot
 
-:openSUSELeap42.3
+:openSUSEleap
 set susearch x86_64
-set base-url ${opensuse}/leap/42.3/repo/oss
+set base-url ${opensuse}/leap/repo/oss
+goto realboot
+
+:openSUSELeap15.5
+set susearch x86_64
+set base-url ${opensuse}/leap/15.5/repo/oss
+goto realboot
+
+:openSUSELeap15.4
+set susearch x86_64
+set base-url ${opensuse}/leap/15.4/repo/oss
+goto realboot
+
+:openSUSELeap15.3
+set susearch x86_64
+set base-url ${opensuse}/leap/15.3/repo/oss
 goto realboot
 
 :openSUSELeap15.2
@@ -99,11 +110,6 @@ set susearch x86_64
 set base-url ${opensuse}/openSUSE-stable/repo/oss
 goto realboot
 
-:openSUSEstable_32bit
-set susearch i386
-set base-url ${opensuse}/openSUSE-stable/repo/oss
-goto realboot
-
 :tumbleweed
 set susearch x86_64
 set base-url ${opensuse}/../tumbleweed/repo/oss
@@ -111,35 +117,5 @@ goto realboot
 
 :tumbleweed_32bit
 set susearch i386
-set base-url ${opensuse}/../tumbleweed/repo/oss
-goto realboot
-
-:factory
-set susearch x86_64
-set base-url ${opensuse}/../factory/repo/oss
-goto realboot
-
-:factory_32bit
-set susearch i386
-set base-url ${opensuse}/../factory/repo/oss
-goto realboot
-
-:factorytested
-set susearch x86_64
-set base-url ${opensuse}/../factory-tested/repo/oss
-goto realboot
-
-:factorytested_32bit
-set susearch i386
-set base-url ${opensuse}/../factory-tested/repo/oss
-goto realboot
-
-:factorysnapshot
-set susearch x86_64
-set base-url ${opensuse}/../factory-snapshot/repo/oss
-goto realboot
-
-:factorysnapshot_32bit
-set susearch i386
-set base-url ${opensuse}/../factory-snapshot/repo/oss
+set base-url ${opensuse}/../ports/i586/tumbleweed/repo/oss/
 goto realboot

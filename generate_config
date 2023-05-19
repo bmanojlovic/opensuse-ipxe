@@ -1,6 +1,6 @@
 #!/bin/sh
-SUSEDISTROS=$(w3m -dump http://download.opensuse.org/distribution/ |sed -re '/DIR/!d;/leap/d;/Parent/d;s/.DIR. //g;s@/.*@@g'|sort -n -r)
-SUSEDISTROSLEAP=$(w3m -dump http://download.opensuse.org/distribution/leap |sed -re '/DIR/!d;/Parent/d;s/.DIR. //g;s@/.*@@g'|sort -n -r)
+SUSEDISTROS=$(curl http://download.opensuse.org/distribution/ 2> /dev/null| sed -re '/class..name/!d;s@.*[.][/]@@g;s@/.*@@g;/current/d')
+SUSEDISTROSLEAP=$(w3m -dump http://download.opensuse.org/distribution/leap |sed -re '/^[0-9]/!d;s@/ .*@@g'|grep -v ^42|sort -n -r) # yes i know 42...
 
 cat <<EOF
 #!ipxe
@@ -16,7 +16,6 @@ item --key c  advanced                 Advanced Boot Settings
 item          tumbleweed               openSUSE Tumbleweed Rolling Release
 item          tumbleweed_32bit         openSUSE Tumbleweed Rolling Release 32bit
 item          openSUSEstable           openSUSE stable
-item          openSUSEstable_32bit     openSUSE stable 32bit
 EOF
 
 for version in ${SUSEDISTROSLEAP}; do
@@ -43,7 +42,8 @@ case  "$version" in
 	*)
 cat << EOF
 item          openSUSE${version}             openSUSE ${version}
-item          openSUSE${version}_32bit       openSUSE ${version} 32bit
+# 32bit is mostly removed but lets keep it here
+#item          openSUSE${version}_32bit       openSUSE ${version} 32bit
 EOF
 		;;
 esac
@@ -62,12 +62,8 @@ item --gap -- -------------            Advanced Boot Settings Menu ------------
 item --key c  settings                 Configure network settings
 item          bootdisk                 Boot from local disk
 item          shell                    iPXE shell
-item          factory                  openSUSE Factory
-item          factory_32bit            openSUSE Factory 32bit
-item          factorysnapshot          openSUSE Factory snapshot
-item          factorysnapshot_32bit    openSUSE Factory snapshot 32bit
-item          factorytested            openSUSE Factory Tested
-item          factorytested_32bit      openSUSE Factory Tested 32bit
+item          tumbleweed               openSUSE Tumbleweed
+item          tumbleweed_32bit         openSUSE Tumbleweed 32bit
 item          back                     Back to main menu (or press ESC)
 item --gap -- ------------- Advanced Boot settings End ------------
 choose --timeout \${menu-timeout} --default shell selected || goto selection
@@ -105,11 +101,6 @@ case  "$version" in
 		;; # ignore not released version... no repo here
 	*)
 cat << EOF
-:openSUSE${version}_32bit
-set susearch i386
-set base-url \${opensuse}/${version}/repo/oss
-goto realboot
-
 :openSUSE${version}
 set susearch x86_64
 set base-url \${opensuse}/${version}/repo/oss
@@ -146,11 +137,6 @@ set susearch x86_64
 set base-url \${opensuse}/openSUSE-stable/repo/oss
 goto realboot
 
-:openSUSEstable_32bit
-set susearch i386
-set base-url \${opensuse}/openSUSE-stable/repo/oss
-goto realboot
-
 :tumbleweed
 set susearch x86_64
 set base-url \${opensuse}/../tumbleweed/repo/oss
@@ -158,36 +144,6 @@ goto realboot
 
 :tumbleweed_32bit
 set susearch i386
-set base-url \${opensuse}/../tumbleweed/repo/oss
-goto realboot
-
-:factory
-set susearch x86_64
-set base-url \${opensuse}/../factory/repo/oss
-goto realboot
-
-:factory_32bit
-set susearch i386
-set base-url \${opensuse}/../factory/repo/oss
-goto realboot
-
-:factorytested
-set susearch x86_64
-set base-url \${opensuse}/../factory-tested/repo/oss
-goto realboot
-
-:factorytested_32bit
-set susearch i386
-set base-url \${opensuse}/../factory-tested/repo/oss
-goto realboot
-
-:factorysnapshot
-set susearch x86_64
-set base-url \${opensuse}/../factory-snapshot/repo/oss
-goto realboot
-
-:factorysnapshot_32bit
-set susearch i386
-set base-url \${opensuse}/../factory-snapshot/repo/oss
+set base-url \${opensuse}/../ports/i586/tumbleweed/repo/oss
 goto realboot
 EOF

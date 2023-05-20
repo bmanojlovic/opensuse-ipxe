@@ -1,5 +1,6 @@
 #!/bin/sh
 SUSEDISTROS=$(curl http://download.opensuse.org/distribution/ 2> /dev/null| sed -re '/class..name/!d;s@.*[.][/]@@g;s@/.*@@g;/current/d')
+SUSEDISTROSMICRO=$(w3m -dump http://download.opensuse.org/distribution/leap-micro |sed -re '/^[0-9]/!d;s@/ .*@@g'|sort -n -r)
 SUSEDISTROSLEAP=$(w3m -dump http://download.opensuse.org/distribution/leap |sed -re '/^[0-9]/!d;s@/ .*@@g'|grep -v ^42|sort -n -r) # yes i know 42...
 
 cat <<EOF
@@ -27,6 +28,20 @@ case  "$version" in
 	*)
 cat << EOF
 item          openSUSELeap${version}         openSUSE Leap ${version}
+EOF
+		;;
+esac
+done
+
+for version in ${SUSEDISTROSMICRO}; do
+case  "$version" in
+	openSUSE-*)
+		;;
+	*-*)
+		;; # ignore not released version... no repo here
+	*)
+cat << EOF
+item          openSUSELeapMicro${version}         openSUSE Leap Micro ${version}
 EOF
 		;;
 esac
@@ -123,6 +138,24 @@ cat << EOF
 :openSUSELeap${version}
 set susearch x86_64
 set base-url \${opensuse}/leap/${version}/repo/oss
+goto realboot
+
+EOF
+	;;
+esac
+done
+
+for version in ${SUSEDISTROSMICRO}; do
+case  "$version" in
+        openSUSE-*)
+        	;;
+	*-*)
+		;; # ignore not released version... no repo here
+	*)
+cat << EOF
+:openSUSELeapMicro${version}
+set susearch x86_64
+set base-url \${opensuse}/leap-micro/${version}/product/repo/Leap-Micro-${version}-x86_64-Media/
 goto realboot
 
 EOF

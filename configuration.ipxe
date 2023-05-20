@@ -17,6 +17,9 @@ item          openSUSELeap15.3         openSUSE Leap 15.3
 item          openSUSELeap15.2         openSUSE Leap 15.2
 item          openSUSELeap15.1         openSUSE Leap 15.1
 item          openSUSELeap15.0         openSUSE Leap 15.0
+item          openSUSELeapMicro5.4         openSUSE Leap Micro 5.4
+item          openSUSELeapMicro5.3         openSUSE Leap Micro 5.3
+item          openSUSELeapMicro5.2         openSUSE Leap Micro 5.2
 item          openSUSEjump             openSUSE jump
 # 32bit is mostly removed but lets keep it here
 #item          openSUSEjump_32bit       openSUSE jump 32bit
@@ -104,6 +107,21 @@ set susearch x86_64
 set base-url ${opensuse}/leap/15.0/repo/oss
 goto realboot
 
+:openSUSELeapMicro5.4
+set susearch x86_64
+set base-url ${opensuse}/leap-micro/5.4/product/repo/Leap-Micro-5.4-x86_64-Media/
+goto realboot
+
+:openSUSELeapMicro5.3
+set susearch x86_64
+set base-url ${opensuse}/leap-micro/5.3/product/repo/Leap-Micro-5.3-x86_64-Media/
+goto realboot
+
+:openSUSELeapMicro5.2
+set susearch x86_64
+set base-url ${opensuse}/leap-micro/5.2/product/repo/Leap-Micro-5.2-x86_64-Media/
+goto realboot
+
 
 :openSUSEstable
 set susearch x86_64
@@ -117,5 +135,5 @@ goto realboot
 
 :tumbleweed_32bit
 set susearch i386
-set base-url ${opensuse}/../ports/i586/tumbleweed/repo/oss/
+set base-url ${opensuse}/../ports/i586/tumbleweed/repo/oss
 goto realboot
